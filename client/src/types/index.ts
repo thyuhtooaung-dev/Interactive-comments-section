@@ -48,3 +48,8 @@ export interface CommentCard {
   replies?: Reply[];
   votes?: Vote[];
 }
+
+export type CreateCommentInput = {
+  content: string;
+  userId: string;
+};

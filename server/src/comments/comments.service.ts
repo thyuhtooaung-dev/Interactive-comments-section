@@ -16,11 +16,10 @@ export class CommentsService {
   ) {}
 
   // CREATE
-  async createComment(content: string, userId: string, parentId?: string) {
+  async createComment(content: string, userId: string) {
     const comment = this.commentRepo.create({
       content,
       user: { id: userId },
-      ...(parentId && { parent: { id: parentId } }),
     });
     return await this.commentRepo.save(comment);
   }

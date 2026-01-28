@@ -21,13 +21,12 @@ export class CommentsController {
 
   @Post()
   create(
-    @Body() dto: { content: string; parentId?: string },
+    @Body("content")  content: string ,
     @CurrentUser() userId: string,
   ) {
     return this.commentsService.createComment(
-      dto.content,
+      content,
       userId,
-      dto.parentId,
     );
   }
 

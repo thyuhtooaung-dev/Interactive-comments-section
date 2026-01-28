@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Comment } from "@/types";
-import { getComments } from "@/service/comments.api.ts";
+import { commentService } from "@/service/comments.api.ts";
 
 export const commentKey = {
   all: ["comments"] as const,
@@ -9,7 +9,7 @@ export const commentKey = {
 export const useComments = () => {
   return useQuery<Comment[]>({
     queryKey: commentKey.all,
-    queryFn: getComments,
+    queryFn: commentService.getAll,
     staleTime: 1000 * 60 * 5,
     select: (comments = []) =>
       [...comments].sort(

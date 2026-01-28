@@ -20,7 +20,7 @@ export class Comment {
   @Column({ nullable: true })
   replyingTo: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
   @Column({ default: 0 })
