@@ -32,7 +32,7 @@ const customLocale: Locale = {
 
     if (options?.addSuffix) {
       if (options.comparison && options.comparison > 0) {
-        return `in ${result}`;
+        return `just now`;
       }
       return `${result} ago`;
     }

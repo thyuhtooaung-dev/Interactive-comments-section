@@ -7,17 +7,21 @@ import * as React from "react";
 
 interface CommentFormProps {
   parentId?: string;
-  replyingTo?: string;
+  replyingToCommentId?: string;
+  replyingToUsername?: string;
   onSuccess?: () => void;
 }
 
 export default function CommentForm({
   parentId,
-  replyingTo,
+  replyingToCommentId,
+  replyingToUsername,
   onSuccess,
 }: CommentFormProps) {
   const { currentUser } = useUser();
-  const [content, setContent] = useState(replyingTo ? `@${replyingTo} ` : "");
+  const [content, setContent] = useState(
+    replyingToUsername ? `@${replyingToUsername} ` : "",
+  );
 
   const { mutate: createComment, isPending: isCommenting } = useCreateComment();
   const { mutate: createReply, isPending: isReplying } = useCreateReply();
@@ -28,20 +32,21 @@ export default function CommentForm({
     e.preventDefault();
     if (!content.trim() || !currentUser) return;
 
-    if (parentId && replyingTo) {
-      const cleanContent = content.replace(`@${replyingTo} `, "").trim();
+    if (parentId && replyingToCommentId && replyingToUsername) {
+      const cleanContent = content
+        .replace(`@${replyingToUsername} `, "")
+        .trim();
 
       createReply(
         {
           parentId,
           content: cleanContent,
-          userId: currentUser.id,
-          replyingTo,
+          replyingTo: replyingToCommentId, // ✅ comment ID
         },
         {
           onSuccess: () => {
             setContent("");
-            if (onSuccess) onSuccess();
+            onSuccess?.();
           },
         },
       );
@@ -69,7 +74,7 @@ export default function CommentForm({
 
         <textarea
           placeholder="Add a comment..."
-          className="min-h-[100px] w-full border border-gray-200 rounded-md px-4 py-2 text-gray-600 focus:border-purple-600 outline-none resize-none"
+          className="min-h-25 w-full border border-gray-200 rounded-md px-4 py-2 text-gray-600 focus:border-purple-600 outline-none resize-none"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />

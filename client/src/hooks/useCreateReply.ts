@@ -7,7 +7,6 @@ import type { Comment } from "@/types";
 interface CreateReplyVars {
   parentId: string;
   content: string;
-  userId: string
   replyingTo: string;
 }
 
@@ -16,14 +15,13 @@ export const useCreateReply = () => {
   const { currentUser } = useUser();
 
   return useMutation({
-    mutationFn: ({ parentId, content, userId, replyingTo }: CreateReplyVars) => {
+    mutationFn: ({
+      parentId,
+      content,
+      replyingTo,
+    }: CreateReplyVars) => {
       if (!currentUser) throw new Error("Not authenticated");
-      return commentService.createReply(
-        parentId,
-        content,
-        userId,
-        replyingTo,
-      );
+      return commentService.createReply(parentId, content, currentUser.id, replyingTo);
     },
 
     onMutate: async ({ parentId, content, replyingTo }) => {

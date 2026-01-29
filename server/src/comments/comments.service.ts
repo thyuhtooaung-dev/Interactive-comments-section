@@ -46,7 +46,13 @@ export class CommentsService {
       where: { id: replyingTo },
       relations: ['user'],
     });
-    const replyingToUsername = repliedComment?.user.username;
+
+    if (!repliedComment) {
+      throw new NotFoundException(
+        'The comment you are replying to does not exist.',
+      );
+    }
+    const replyingToUsername = repliedComment.user.username;
 
     const reply = this.commentRepo.create({
       content,

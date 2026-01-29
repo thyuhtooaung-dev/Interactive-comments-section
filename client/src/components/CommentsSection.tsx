@@ -21,7 +21,8 @@ export default function CommentsSection({ comments }: { comments: Comment[] }) {
             <div className="ml-0 md:ml-10">
               <CommentForm
                 parentId={comment.id}
-                replyingTo={comment.user.username}
+                replyingToCommentId={comment.id}
+                replyingToUsername={comment.user.username}
                 onSuccess={() => setReplyingToId(null)}
               />
             </div>
