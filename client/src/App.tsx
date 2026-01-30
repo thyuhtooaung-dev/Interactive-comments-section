@@ -1,6 +1,8 @@
 import { useComments } from "@/hooks/useComments.ts";
 import CommentsSection from "@/components/CommentsSection.tsx";
 import CommentForm from "@/components/CommentForm.tsx";
+import Navbar from "@/components/Navbar.tsx";
+
 export default function App() {
   const {data : comments, isLoading, isError} = useComments();
 
@@ -17,10 +19,9 @@ export default function App() {
   }
 
   return (
-    <main className={"px-3 py-6 flex flex-col gap-3 max-w-220 items-center justify-center"}>
-      <CommentsSection
-        comments={comments}
-      />
+    <main className="px-3 pb-6 flex flex-col gap-3 max-w-200 mx-auto items-center justify-center">
+      <Navbar/>
+      <CommentsSection comments={comments} />
       <CommentForm />
     </main>
   );

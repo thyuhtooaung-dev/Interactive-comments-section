@@ -42,7 +42,7 @@ export const useCreateReply = () => {
         replyingTo,
       };
 
-      const sortByDate = (a: any, b: any) =>
+      const sortByDate = (a: Comment, b: Comment) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
 
       queryClient.setQueryData<Comment[]>(commentKey.all, (old = []) => {

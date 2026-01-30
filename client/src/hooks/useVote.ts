@@ -28,7 +28,7 @@ export const useVote = () => {
 
       if (!currentUser || !previousComments) return { previousComments };
 
-      const updateCommentInTree = (list: any[]): any[] => {
+      const updateCommentInTree = (list: Comment[]): Comment[] => {
         return list.map((comment) => {
           if (comment.id === commentId) {
             const existingVote = comment.votes?.find(

@@ -38,5 +38,4 @@ function ButtonGroup({
 
 export {
   ButtonGroup,
-  buttonGroupVariants,
 };
