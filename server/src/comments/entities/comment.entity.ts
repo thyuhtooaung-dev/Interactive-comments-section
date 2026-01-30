@@ -30,14 +30,13 @@ export class Comment {
   user: User;
 
   @ManyToOne(() => Comment, (comment) => comment.replies, {
-    nullable: true,
     onDelete: 'CASCADE',
   })
   parent: Comment;
 
-  @OneToMany(() => Comment, (comment) => comment.parent)
+  @OneToMany(() => Comment, (comment) => comment.parent, { cascade: true })
   replies: Comment[];
 
-  @OneToMany(() => Vote, (vote) => vote.comment)
+  @OneToMany(() => Vote, (vote) => vote.comment, { cascade: true })
   votes: Vote[];
 }

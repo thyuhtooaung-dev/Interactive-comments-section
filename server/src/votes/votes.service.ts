@@ -18,7 +18,6 @@ export class VotesService {
       throw new BadRequestException('Vote value must be 1 or -1');
     }
 
-    // 1. Check if vote exists
     const existingVote = await this.voteRepo.findOne({
       where: {
         user: { id: userId },
@@ -27,16 +26,13 @@ export class VotesService {
     });
 
     if (existingVote) {
-      // If clicking same vote again, remove it (toggle behavior)
       if (existingVote.value === value) {
         await this.voteRepo.remove(existingVote);
       } else {
-        // Change from upvote to downvote or vice versa
         existingVote.value = value;
         await this.voteRepo.save(existingVote);
       }
     } else {
-      // Create new vote
       const newVote = this.voteRepo.create({
         value,
         user: { id: userId },
@@ -45,7 +41,6 @@ export class VotesService {
       await this.voteRepo.save(newVote);
     }
 
-    // 2. Recalculate Comment Score
     return this.updateCommentScore(commentId);
   }
 
@@ -53,7 +48,9 @@ export class VotesService {
     const votes = await this.voteRepo.find({
       where: { comment: { id: commentId } },
     });
-    const newScore = votes.reduce((acc, vote) => acc + vote.value, 0);
+
+    const rawScore = votes.reduce((acc, vote) => acc + vote.value, 0);
+    const newScore = Math.max(0, rawScore);
 
     await this.commentRepo.update(commentId, { score: newScore });
     return { score: newScore };

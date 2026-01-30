@@ -5,6 +5,9 @@
 
 # Dependencies
 /node_modules
+/client/node_modules
+/server/node_modules
+/server/dist
 /.pnp
 .pnp.js
 yarn.debug.log*
@@ -13,6 +16,7 @@ npm-debug.log*
 
 # Environment and secrets
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local

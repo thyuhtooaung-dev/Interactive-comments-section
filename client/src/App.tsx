@@ -6,8 +6,8 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <div className={"flex justify-center items-center min-h-screen"}>
-        loading...
+      <div className="flex justify-center items-center min-h-screen">
+        <img src="/chat%20loading.gif" alt="Loading..." className="w-24 h-24" />
       </div>
     );
   }
@@ -17,7 +17,7 @@ export default function App() {
   }
 
   return (
-    <main className={"bg-grey-50 px-3 py-6 flex flex-col gap-3"}>
+    <main className={"px-3 py-6 flex flex-col gap-3 max-w-220 items-center justify-center"}>
       <CommentsSection
         comments={comments}
       />

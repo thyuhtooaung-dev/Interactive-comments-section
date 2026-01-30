@@ -1,13 +1,15 @@
-import type { Replies } from "@/types";
 import CommentCard from "@/components/CommentCard.tsx";
 import CommentForm from "@/components/CommentForm.tsx";
+import type { Comment } from "@/types";
 
 export default function ReplyList({
+  rootId,
   replies,
   replyingToId,
   onReplyClick,
 }: {
-  replies: Replies[];
+  rootId: string;
+  replies: Comment[];
   replyingToId: string | null;
   onReplyClick: (id: string | null) => void;
 }) {
@@ -20,11 +22,11 @@ export default function ReplyList({
             onReplyClick={() => onReplyClick(reply.id)}
           />
 
-          {/* Form appears under the specific Reply if active */}
           {replyingToId === reply.id && (
             <CommentForm
-              parentId={reply.id}
-              replyingTo={reply.user.username}
+              parentId={rootId}
+              replyingToCommentId={reply.id}
+              replyingToUsername={reply.user.username}
               onSuccess={() => onReplyClick(null)}
             />
           )}

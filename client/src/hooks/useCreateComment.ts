@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useUser } from "@/context/user/UserContext.tsx";
+import { useUser } from "@/context/UserContext.tsx";
 import { commentService } from "@/service/comments.api.ts";
 import { commentKey } from "@/hooks/useComments.ts";
 import type { Comment } from "@/types";

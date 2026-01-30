@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useUser } from "@/context/user/UserContext.tsx";
+import { useUser } from "@/context/UserContext.tsx";
 import { commentService } from "@/service/comments.api.ts";
 import { commentKey } from "@/hooks/useComments.ts";
 import type { Comment } from "@/types";
@@ -29,13 +29,10 @@ export const useUpdateComment = () => {
         if (!old) return [];
 
         return old.map((comment) => {
-          // 1. Check if the root comment is the one being updated
           if (comment.id === id) {
             return { ...comment, content };
           }
 
-          // 2. If not, check if it's one of the replies
-          // We map over replies regardless, returning a new replies array if changed
           const updatedReplies = comment.replies.map((reply) =>
             reply.id === id ? { ...reply, content } : reply,
           );

@@ -13,11 +13,9 @@ export class User {
   @Column({ unique: true })
   username!: string;
 
-  // A user can author many comments
   @OneToMany(() => Comment, (comment) => comment.user)
   comments!: Comment[];
 
-  // A user can cast many votes
   @OneToMany(() => Vote, (vote) => vote.user)
   votes!: Vote[];
 }

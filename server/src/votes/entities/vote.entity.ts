@@ -9,7 +9,7 @@ import { User } from '@/users/entities/user.entity';
 import { Comment } from '@/comments/entities/comment.entity';
 
 @Entity('votes')
-@Unique(['user', 'comment']) // Prevents duplicate votes at DB level
+@Unique(['user', 'comment'])
 export class Vote {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { commentKey } from "@/hooks/useComments";
 import { commentService } from "@/service/comments.api";
-import { useUser } from "@/context/user/UserContext";
+import { useUser } from "@/context/UserContext.tsx";
 import type { Comment } from "@/types";
 
 export const useDeleteComment = () => {
@@ -15,29 +15,20 @@ export const useDeleteComment = () => {
     },
 
     onMutate: async (commentId: string) => {
-      // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: commentKey.all });
 
-      // Snapshot previous state
       const previousComments =
         queryClient.getQueryData<Comment[]>(commentKey.all) ?? [];
 
-      // Optimistically update cache
       queryClient.setQueryData<Comment[]>(commentKey.all, (old) => {
         if (!old) return old;
 
-        return (
-          old
-            // Remove root comment
-            .filter((comment) => comment.id !== commentId)
-            // Remove replies
-            .map((comment) => ({
-              ...comment,
-              replies: comment.replies.filter(
-                (reply) => reply.id !== commentId,
-              ),
-            }))
-        );
+        return old
+          .filter((comment) => comment.id !== commentId)
+          .map((comment) => ({
+            ...comment,
+            replies: comment.replies.filter((reply) => reply.id !== commentId),
+          }));
       });
 
       return { previousComments };

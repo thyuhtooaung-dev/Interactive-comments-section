@@ -7,49 +7,16 @@ export type User = {
 export type Vote = {
   id: string;
   value: 1 | -1;
+  user: { id: string };
 };
 
-export type Reply = {
+export interface Comment {
   id: string;
   content: string;
-  replyingTo: string | null;
   createdAt: string;
   score: number;
   user: User;
-};
-
-export type Comment = {
-  id: string;
-  content: string;
-  replyingTo: null;
-  createdAt: string;
-  score: number;
-  user: User;
-  replies: Reply[];
+  replyingTo?: string | null;
+  replies: Comment[];
   votes: Vote[];
-};
-
-export interface Replies {
-  id: string;
-  content: string;
-  replyingTo: string | null;
-  createdAt: string;
-  score: number;
-  user: User;
 }
-
-export interface CommentCard {
-  id: string;
-  content: string;
-  replyingTo: string | null;
-  createdAt: string;
-  score: number;
-  user: User;
-  replies?: Reply[];
-  votes?: Vote[];
-}
-
-export type CreateCommentInput = {
-  content: string;
-  userId: string;
-};

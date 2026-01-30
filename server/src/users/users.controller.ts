@@ -28,7 +28,6 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  // for creating user (extend)
   @Post()
   create(@Body() userData: Partial<User>) {
     return this.usersService.create(userData);

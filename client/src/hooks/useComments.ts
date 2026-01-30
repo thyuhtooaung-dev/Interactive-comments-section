@@ -11,10 +11,18 @@ export const useComments = () => {
     queryKey: commentKey.all,
     queryFn: commentService.getAll,
     staleTime: 1000 * 60 * 5,
-    select: (comments = []) =>
-      [...comments].sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-      ),
+    select: (data: Comment[]) => {
+      const sortByDate = (a: Comment, b: Comment) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+
+      return data
+        .map((comment) => ({
+          ...comment,
+          replies: Array.isArray(comment.replies)
+            ? [...comment.replies].sort(sortByDate)
+            : [],
+        }))
+        .sort(sortByDate);
+    },
   });
 };
