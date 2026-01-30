@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommentsModule } from './comments/comments.module';
-import { UsersModule } from '@/users/users.module';
-import { VotesModule } from '@/votes/votes.module';
-import { SeedModule } from '@/seed/seed.module';
+import { UsersModule } from './users/users.module';
+import { VotesModule } from './votes/votes.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { SeedModule } from '@/seed/seed.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
       synchronize: false,
       ssl: {
         rejectUnauthorized: false,
