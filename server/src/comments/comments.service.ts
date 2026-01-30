@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { IsNull, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Comment } from '@/comments/entities/comment.entity';
+import { Comment } from './entities/comment.entity';
 
 @Injectable()
 export class CommentsService {

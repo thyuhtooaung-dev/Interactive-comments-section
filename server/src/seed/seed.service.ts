@@ -1,8 +1,8 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '@/users/entities/user.entity';
-import { Comment } from '@/comments/entities/comment.entity';
+import { User } from '../users/entities/user.entity';
+import { Comment } from '../comments/entities/comment.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 

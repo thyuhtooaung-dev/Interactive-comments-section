@@ -5,8 +5,8 @@ import {
   ManyToOne,
   Unique,
 } from 'typeorm';
-import { User } from '@/users/entities/user.entity';
-import { Comment } from '@/comments/entities/comment.entity';
+import { User } from '../../users/entities/user.entity';
+import { Comment } from '../../comments/entities/comment.entity';
 
 @Entity('votes')
 @Unique(['user', 'comment'])

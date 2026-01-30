@@ -6,8 +6,8 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { User } from '@/users/entities/user.entity';
-import { Vote } from '@/votes/entities/vote.entity';
+import { User } from '../../users/entities/user.entity';
+import { Vote } from '../../votes/entities/vote.entity';
 
 @Entity()
 export class Comment {

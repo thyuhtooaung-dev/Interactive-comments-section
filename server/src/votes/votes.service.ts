@@ -2,7 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Vote } from './entities/vote.entity';
-import { Comment } from '@/comments/entities/comment.entity';
+import { Comment } from '../comments/entities/comment.entity';
 
 @Injectable()
 export class VotesService {

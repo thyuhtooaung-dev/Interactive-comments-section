@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Comment } from '@/comments/entities/comment.entity';
-import { Vote } from '@/votes/entities/vote.entity';
+import { Comment } from '../../comments/entities/comment.entity';
+import { Vote } from '../../votes/entities/vote.entity';
 
 @Entity()
 export class User {

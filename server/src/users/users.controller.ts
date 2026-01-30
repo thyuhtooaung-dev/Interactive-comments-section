@@ -6,7 +6,7 @@ import {
   Param,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import { UsersService } from '@/users/users.service';
+import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 
 @Controller('users')

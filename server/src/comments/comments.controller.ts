@@ -7,8 +7,8 @@ import {
   Patch,
   Param,
 } from '@nestjs/common';
-import { CommentsService } from '@/comments/comments.service';
-import { CurrentUser } from '@common/decorators/user.decorator';
+import { CommentsService } from './comments.service';
+import { CurrentUser } from '../common/decorators/user.decorator';
 
 @Controller('comments')
 export class CommentsController {
