@@ -27,7 +27,7 @@ import { SeedModule } from './seed/seed.module';
     UsersModule,
     VotesModule,
     CommentsModule,
-    SeedModule
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -20,14 +20,8 @@ export class CommentsController {
   }
 
   @Post()
-  create(
-    @Body("content")  content: string ,
-    @CurrentUser() userId: string,
-  ) {
-    return this.commentsService.createComment(
-      content,
-      userId,
-    );
+  create(@Body('content') content: string, @CurrentUser() userId: string) {
+    return this.commentsService.createComment(content, userId);
   }
 
   @Post(':id/reply')
@@ -36,7 +30,12 @@ export class CommentsController {
     @CurrentUser() userId: string,
     @Body() dto: { content: string; replyingTo: string },
   ) {
-    return this.commentsService.createReply(parentId, dto.content, userId, dto.replyingTo);
+    return this.commentsService.createReply(
+      parentId,
+      dto.content,
+      userId,
+      dto.replyingTo,
+    );
   }
 
   @Delete(':id')
