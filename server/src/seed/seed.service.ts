@@ -6,6 +6,28 @@ import { Comment } from '../comments/entities/comment.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
+interface JSONUser {
+  image: {
+    png: string;
+    webp: string;
+  };
+  username: string;
+}
+
+interface JSONComment {
+  id: number;
+  content: string;
+  createdAt: string;
+  score: number;
+  user: JSONUser;
+  replies?: JSONComment[];
+}
+
+interface JSONData {
+  currentUser: JSONUser;
+  comments: JSONComment[];
+}
+
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {
   constructor(
@@ -16,23 +38,18 @@ export class SeedService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     const userCount = await this.userRepo.count();
-
-    if (userCount > 0) {
-      console.log('🌱 Database already has data, skipping seed.');
-      return;
-    }
-
-    console.log('🚀 Seeding database from data.json...');
+    if (userCount > 0) return;
 
     const filePath = path.join(process.cwd(), 'data.json');
     const rawData = fs.readFileSync(filePath, 'utf8');
-    const data = JSON.parse(rawData);
+
+    const data = JSON.parse(rawData) as JSONData;
 
     const usersMap = new Map<string, User>();
 
-    const ensureUser = async (userData: any) => {
-      if (usersMap.has(userData.username))
-        return usersMap.get(userData.username);
+    const ensureUser = async (userData: JSONUser): Promise<User> => {
+      const existing = usersMap.get(userData.username);
+      if (existing) return existing;
 
       const user = this.userRepo.create({
         username: userData.username,
@@ -48,27 +65,29 @@ export class SeedService implements OnApplicationBootstrap {
     for (const commentData of data.comments) {
       const author = await ensureUser(commentData.user);
 
-      const parentComment = await this.commentRepo.save({
-        content: commentData.content,
-        score: commentData.score,
-        createdAt: new Date(),
-        user: author,
-      });
+      const parentComment = await this.commentRepo.save(
+        this.commentRepo.create({
+          content: commentData.content,
+          score: commentData.score,
+          user: author,
+        }),
+      );
 
       if (commentData.replies && commentData.replies.length > 0) {
         for (const replyData of commentData.replies) {
           const replyAuthor = await ensureUser(replyData.user);
 
-          await this.commentRepo.save({
-            content: replyData.content,
-            score: replyData.score,
-            user: replyAuthor,
-            parent: parentComment,
-          });
+          await this.commentRepo.save(
+            this.commentRepo.create({
+              content: replyData.content,
+              score: replyData.score,
+              user: replyAuthor,
+              parent: parentComment,
+              replyingTo: replyData.user.username,
+            }),
+          );
         }
       }
     }
-
-    console.log('✅ Seeding complete!');
   }
 }

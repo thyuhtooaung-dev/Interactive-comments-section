@@ -10,30 +10,38 @@ type UserContextType = {
   switchUser: (user: User) => void;
 };
 
-// REMOVE 'export' here to fix Fast Refresh error
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [_, setVersion] = useState(0); // Simple trigger for re-renders
+  const [, setVersion] = useState(0);
 
-  const { data: allUsers = [], isLoading } = useQuery({
+  const { data, isLoading } = useQuery<User[]>({
     queryKey: ["users"],
     queryFn: getAllUsers,
   });
 
+  const allUsers: User[] = data || [];
   const savedUserId =
     typeof window !== "undefined" ? localStorage.getItem("activeUserId") : null;
+
   const currentUser =
-    allUsers.find((u : User) => u.id === savedUserId) || allUsers[0] || null;
+    allUsers.length > 0
+      ? allUsers.find((u: User) => u.id === savedUserId) || allUsers[0]
+      : null;
 
   const switchUser = (user: User) => {
     localStorage.setItem("activeUserId", user.id);
-    setVersion((v) => v + 1); // Trigger re-render to pick up new localStorage value
+    setVersion((v) => v + 1);
   };
 
   return (
     <UserContext.Provider
-      value={{ currentUser, allUsers, isLoading, switchUser }}
+      value={{
+        currentUser,
+        allUsers,
+        isLoading,
+        switchUser,
+      }}
     >
       {children}
     </UserContext.Provider>

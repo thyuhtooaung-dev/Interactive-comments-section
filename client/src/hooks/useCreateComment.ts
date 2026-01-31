@@ -15,6 +15,7 @@ export const useCreateComment = () => {
     },
 
     onMutate: async (content: string) => {
+      if (!currentUser) return;
       await queryClient.cancelQueries({ queryKey: commentKey.all });
 
       const previousComments =

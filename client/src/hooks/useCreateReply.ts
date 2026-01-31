@@ -36,7 +36,11 @@ export const useCreateReply = () => {
         content,
         createdAt: new Date().toISOString(),
         score: 0,
-        user: { ...currentUser },
+        user: {
+          id: currentUser!.id,
+          avatar: currentUser!.avatar,
+          username: currentUser!.username,
+        },
         replies: [],
         votes: [],
         replyingTo,
