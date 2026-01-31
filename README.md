@@ -35,19 +35,25 @@ Users should be able to:
 ### Links
 
 - Solution URL: [GitHub](https://github.com/thyuhtooaung-dev/Interactive-comments-section)
-- Live Site URL: [Vercel](https://tipcalculator-vert.vercel.app/)
+- Live Site URL: [Vercel](https://interactive-comments-section-k469.vercel.app/)
 
 ## My process
 
 ### Built with
 
-- [React](https://reactjs.org/)
-- [Tailwindcss](https://tailwindcss.com/)
-- [Vitest](https://vitest.dev/)
+- [React](https://react.dev/) – A declarative, component-based library for building user interfaces. Used here to build a responsive and interactive comment system UI.
+- [Tailwind CSS](https://tailwindcss.com/) – A utility-first CSS framework that makes styling fast, consistent, and easy to maintain.
+- [TanStack Query (React Query)](https://tanstack.com/query/latest) – Powerful data-fetching and caching library for managing server state, handling loading states, and keeping the UI in sync with the backend.
+- [shadcn/ui](https://ui.shadcn.com/) – A collection of beautifully designed, accessible UI components built on top of Radix UI and Tailwind CSS, used to speed up UI development while keeping full control over styling.
+- [NestJS](https://nestjs.com/) – A progressive Node.js framework for building scalable and maintainable backend applications with a clean architecture.
+- [TypeORM](https://typeorm.io/) – An ORM for TypeScript and JavaScript that helps manage database entities, relationships, and migrations in a type-safe way.
+- [Neon](https://neon.tech/) – A serverless Postgres database platform used for reliable and scalable cloud database hosting.
+
 
 ### Useful resources
 
-* [Vitest Documentation](https://vitest.dev) – Vitest is a fast testing framework built for modern frontend tools like Vite. It provides a simple API for writing unit and integration tests, with quick feedback and good TypeScript support. It helped me practice **test-driven development (TDD)** by writing tests first and verifying behavior early, which made my code more reliable and easier to refactor.
+- [TanStack Query Docs](https://tanstack.com/query/latest/docs/react/overview) – Great for learning about server-state management, caching, mutations, and optimistic updates.
+- [TypeORM Documentation](https://typeorm.io/) – Useful for working with entities, relations, repositories, and migrations in a type-safe way.
 
 ## Author
 
