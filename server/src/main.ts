@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'http://127.0.0.1:5173',
+    origin: 'https://interactive-comments-section-k469.vercel.app/',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   });
